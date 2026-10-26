@@ -1,0 +1,5 @@
+fastapi==0.139.0
+uvicorn==0.51.0
+opencv-python-headless==4.14.0.94
+python-multipart==0.0.29
+starlette==1.0.0
