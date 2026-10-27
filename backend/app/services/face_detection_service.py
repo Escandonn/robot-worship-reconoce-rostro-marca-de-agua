@@ -117,11 +117,11 @@ class FaceDetectionService:
             face_y + round(face_height * 0.22),
         )
         radius = max(4, round(min(face_width * 0.13, face_height * 0.09)))
-        color = (0, 0, 255)
+        color = (56, 48, 255)
         thickness = max(1, round(face_width / 120))
         cv2.circle(image, center, radius, color, thickness, cv2.LINE_AA)
 
-        triangle_radius = radius * 0.5
+        triangle_radius = radius * 0.75
         triangle = np.array(
             [
                 (
@@ -147,3 +147,30 @@ class FaceDetectionService:
             thickness=thickness,
             lineType=cv2.LINE_AA,
         )
+
+        label = "WORSHIP"
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        font_scale = min(
+            0.55,
+            face_width * 0.78 / cv2.getTextSize(label, font, 1, thickness)[0][0],
+        )
+        letter_spacing = max(1, round(font_scale * 2))
+        letter_widths = [
+            cv2.getTextSize(character, font, font_scale, thickness)[0][0]
+            for character in label
+        ]
+        label_width = sum(letter_widths) + letter_spacing * (len(label) - 1)
+        baseline = center[1] - radius - 3
+        cursor_x = center[0] - label_width // 2
+        for character, character_width in zip(label, letter_widths):
+            cv2.putText(
+                image,
+                character,
+                (cursor_x, baseline),
+                font,
+                font_scale,
+                color,
+                thickness,
+                cv2.LINE_AA,
+            )
+            cursor_x += character_width + letter_spacing

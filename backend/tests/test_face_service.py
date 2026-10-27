@@ -101,11 +101,17 @@ def test_annotates_detected_forehead_and_returns_png(
         cv2.IMREAD_COLOR,
     )
     assert decoded is not None
-    marker_pixels = decoded[20:30, 40:60]
+    marker_pixels = decoded[20:37, 40:60]
     assert np.any(
         (marker_pixels[:, :, 2] > 200)
-        & (marker_pixels[:, :, 0] < 50)
-        & (marker_pixels[:, :, 1] < 50)
+        & (np.abs(marker_pixels[:, :, 0].astype(int) - 56) < 20)
+        & (np.abs(marker_pixels[:, :, 1].astype(int) - 48) < 20)
+    )
+    label_pixels = decoded[10:20, 30:70]
+    assert np.any(
+        (label_pixels[:, :, 2] > 200)
+        & (np.abs(label_pixels[:, :, 0].astype(int) - 56) < 20)
+        & (np.abs(label_pixels[:, :, 1].astype(int) - 48) < 20)
     )
     assert len(classifier.calls) == 1
 

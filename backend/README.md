@@ -53,8 +53,9 @@ límite inicial de 5 MiB. El límite puede cambiarse mediante la variable de
 entorno positiva `MAX_UPLOAD_SIZE_BYTES`.
 
 `POST /api/v1/face/annotate` acepta el mismo archivo y devuelve `image/png` con
-un círculo y un triángulo verdes en la zona estimada de la frente de cada rostro
-detectado. Si no encuentra rostros, devuelve HTTP 404 con el error
+el logotipo `WORSHIP` en rojo (`#FF3038`): el nombre centrado sobre un círculo
+con un triángulo delineado dentro, colocado en la zona estimada de la frente de
+cada rostro detectado. Si no encuentra rostros, devuelve HTTP 404 con el error
 `FACE_NOT_DETECTED` y no devuelve una imagen.
 
 Ejemplo desde PowerShell:
@@ -101,7 +102,8 @@ devuelven trazas ni rutas locales.
   coordinación del servicio.
 - `app/models/face_result.py`: resultado de dominio inmutable.
 - `app/services/face_detection_service.py`: decodificación OpenCV, detección
-  Haar Cascade, localización aproximada de la frente y anotación en memoria.
+  Haar Cascade, localización aproximada de la frente y anotación en memoria con
+  el logotipo `WORSHIP`.
 - `app/views/face_view.py`: serialización del contrato JSON.
 - `app/main.py`: configuración FastAPI, rutas y errores HTTP.
 
